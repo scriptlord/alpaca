@@ -32,7 +32,7 @@ Set it up in **Settings** → **Connect Telegram** → paste bot token → scan 
 - Connects to Alpaca via dual WebSocket streams (market data + trade updates)
 - Lets you set alerts on price, P&L %, P&L $, or order status
 - Sends notifications via in-app toasts, Telegram, and browser push
-- Shows stock insights — RSI, volume vs average, moving averages, news sentiment
+- Shows stock insights: RSI, volume vs average, moving averages, news sentiment
 - Explains what's happening in English, Pidgin, Yoruba, or Igbo
 - Beginner mode explains like you're new; Pro mode gives you raw data
 - Watchlist with autocomplete search from Alpaca's asset API

@@ -63,25 +63,38 @@ function AppShell() {
     window.location.reload()
   }, [])
 
+  const [showSetup, setShowSetup] = useState(false)
+
   if (needsSetup) {
     return (
       <>
         <div className="min-h-screen bg-background text-foreground">
-          <header className="flex h-14 items-center justify-center border-b border-border px-6">
+          <header className="flex h-14 items-center justify-between border-b border-border px-6">
             <h1 className="text-lg font-semibold">Smart Trading Alerts Hub</h1>
+            <Button onClick={() => setShowSetup(true)}>
+              Get Started
+            </Button>
           </header>
           <main className="mx-auto max-w-3xl px-6 py-10 space-y-10">
-            <div className="text-center space-y-3">
+            <div className="text-center space-y-4">
               <h1 className="text-3xl font-bold">Never miss a market move</h1>
               <p className="text-muted-foreground max-w-lg mx-auto">
-                Real-time stock alerts with AI-powered insights — delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
+                Real-time stock alerts with smart insights — delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
               </p>
+              <Button size="lg" onClick={() => setShowSetup(true)}>
+                Get Started
+              </Button>
             </div>
             <HowItWorks />
+            <div className="text-center pb-10">
+              <Button size="lg" onClick={() => setShowSetup(true)}>
+                Get Started
+              </Button>
+            </div>
           </main>
         </div>
         <Toaster theme="light" position="top-right" richColors />
-        <SetupModal open={needsSetup} onComplete={handleSetupComplete} />
+        <SetupModal open={showSetup} onComplete={handleSetupComplete} />
       </>
     )
   }
