@@ -185,10 +185,6 @@ export function SetupModal({
                   </Button>
                 </div>
               )}
-
-              <p className="text-xs text-center text-muted-foreground">
-                Keys are stored in session only — cleared when you close the browser.
-              </p>
             </div>
           </>
         ) : (

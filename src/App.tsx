@@ -13,6 +13,7 @@ import { useAlpacaWs } from '@/hooks/useAlpacaWs'
 import { useAlertEngine } from '@/hooks/useAlertEngine'
 import { useAlertsStore } from '@/stores/alerts'
 import { ConnectionBanner } from '@/components/layout/ConnectionBanner'
+import { HowItWorks } from '@/components/layout/HowItWorks'
 import { CREDENTIALS_KEY } from '@/lib/constants'
 
 const queryClient = new QueryClient({
@@ -61,6 +62,29 @@ function AppShell() {
     window.location.reload()
   }, [])
 
+  if (needsSetup) {
+    return (
+      <>
+        <div className="min-h-screen bg-background text-foreground">
+          <header className="flex h-14 items-center justify-center border-b border-border px-6">
+            <h1 className="text-lg font-semibold">Smart Trading Alerts Hub</h1>
+          </header>
+          <main className="mx-auto max-w-3xl px-6 py-10 space-y-10">
+            <div className="text-center space-y-3">
+              <h1 className="text-3xl font-bold">Never miss a market move</h1>
+              <p className="text-muted-foreground max-w-lg mx-auto">
+                Real-time stock alerts with AI-powered insights — delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
+              </p>
+            </div>
+            <HowItWorks />
+          </main>
+        </div>
+        <Toaster theme="light" position="top-right" richColors />
+        <SetupModal open={needsSetup} onComplete={handleSetupComplete} />
+      </>
+    )
+  }
+
   return (
     <>
       <div className="flex h-screen bg-background text-foreground">
@@ -88,8 +112,6 @@ function AppShell() {
       </div>
 
       <Toaster theme="light" position="top-right" richColors />
-
-      <SetupModal open={needsSetup} onComplete={handleSetupComplete} />
 
       <AlertBuilderDrawer
         open={drawerOpen}
