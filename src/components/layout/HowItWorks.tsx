@@ -4,7 +4,7 @@ const steps = [
   {
     icon: BarChart3,
     title: 'Track Any Stock',
-    description: 'Add stocks to your watchlist and get real-time insights — RSI, volume analysis, news sentiment, and momentum signals.',
+    description: 'Add stocks to your watchlist and get real-time insights, RSI, volume analysis, news sentiment, and momentum signals.',
   },
   {
     icon: Bell,
@@ -19,7 +19,7 @@ const steps = [
   {
     icon: Send,
     title: 'Telegram Delivery',
-    description: 'Alerts and insights delivered straight to your Telegram — with full analysis of what happened and why.',
+    description: 'Alerts and insights delivered straight to your Telegram. Set it up in Settings, just paste your bot token and scan the QR code.',
   },
 ]
 
@@ -49,7 +49,7 @@ export function HowItWorks() {
       <div className="space-y-4">
         <div className="text-center space-y-1">
           <h3 className="text-lg font-semibold">What You Receive on Telegram</h3>
-          <p className="text-sm text-muted-foreground">Real examples — AI analysis in Nigerian Pidgin</p>
+          <p className="text-sm text-muted-foreground">Real examples: AI analysis in Nigerian Pidgin</p>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-lg border border-border overflow-hidden">
@@ -63,7 +63,7 @@ export function HowItWorks() {
           <div className="rounded-lg border border-border overflow-hidden">
             <img
               src="/screenshots/telegram-pidgin-1.jpeg"
-              alt="AI analysis in Pidgin — what is happening with the stock"
+              alt="AI analysis in Pidgin: what is happening with the stock"
               className="w-full"
               loading="lazy"
             />
@@ -71,7 +71,7 @@ export function HowItWorks() {
           <div className="rounded-lg border border-border overflow-hidden">
             <img
               src="/screenshots/telegram-pidgin-2.jpeg"
-              alt="AI analysis in Pidgin — what to consider doing"
+              alt="AI analysis in Pidgin: what to consider doing"
               className="w-full"
               loading="lazy"
             />
