@@ -14,7 +14,7 @@ const steps = [
   {
     icon: Globe,
     title: 'Your Language, Your Level',
-    description: 'Get AI-powered explanations in English, Pidgin, Yoruba, or Igbo. Choose Beginner or Pro mode for your experience level.',
+    description: 'Get AI-powered explanations in English, Pidgin, Yoruba, or Igbo. Choose Beginner or Pro mode in Settings.',
   },
   {
     icon: Send,

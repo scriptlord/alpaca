@@ -6,7 +6,7 @@ A real-time alert management system built on Alpaca's Paper Trading API. Monitor
 
 ## Try It Live
 
-**[smart-alerts-hub.vercel.app](https://sampling-alpaca.vercel.app)**
+**[smart-alerts-hub.vercel.app](https://stocks-alerts.vercel.app)**
 
 1. Click **"Try Demo"** — connects instantly to a paper trading account
 2. Click any stock in the watchlist (e.g. AAPL) — see AI-powered insights
