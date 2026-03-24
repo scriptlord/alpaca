@@ -4,16 +4,43 @@ A real-time alert management system built on Alpaca's Paper Trading API. Monitor
 
 **Built to solve Alpaca's #1 validated customer pain point** — the platform has no built-in alert or notification system.
 
+## Try It Live
+
+**[smart-alerts-hub.vercel.app](https://sampling-alpaca.vercel.app)**
+
+1. Click **"Try Demo"** — connects instantly to a paper trading account
+2. Click any stock in the watchlist (e.g. AAPL) — see AI-powered insights
+3. Click **"Analyze"** — get stock analysis in Pidgin, Yoruba, Igbo, or English
+4. Go to **Alerts** → **Create Alert** → set a price condition
+5. During US market hours (Mon-Fri, 9:30 AM - 4:00 PM ET), alerts trigger with live prices
+
+### Telegram Alerts
+
+When an alert triggers, you receive a Telegram message like this:
+
+**Beginner + Pidgin:**
+> 🔴 Bros, AAPL don drop 5% today o! Na because tariff talk dey cause wahala. Volume dey 3x pass normal — plenty people dey sell. You fit watch am small before you decide wetin you wan do. Not financial advice o.
+
+**Pro + English:**
+> 🚨 AAPL $174.50 (-5.1%) | RSI 28 | Vol 3.1x
+> BofA PT raise to $320. Chip rally on Iran pause.
+
+To try it: **Settings** → **Connect Telegram** → paste bot token → scan QR code → done.
+
 ## Features
 
 - **Real-time monitoring** via dual WebSocket streams (market data + trade updates)
 - **Configurable alerts** — price thresholds, P&L %, P&L $, order status
+- **AI-powered stock insights** — technical analysis with news sentiment, explained in your language
+- **Multi-language support** — English, Nigerian Pidgin, Yoruba, Igbo
+- **Beginner/Pro modes** — simple explanations or data-driven alerts
 - **Multi-channel notifications** — in-app toasts, Telegram messages, browser push
 - **Portfolio dashboard** — live positions, P&L, account summary
-- **Alert management** — create, edit, pause, resume, delete rules
-- **Triggered alert feed** — virtualized, persistent history via IndexedDB
+- **Watchlist** — add any stock with autocomplete search from Alpaca's API
+- **Quick trade** — buy/sell directly from the insight panel
+- **Telegram QR onboarding** — scan to connect, no manual chat ID entry
+- **Market hours detection** — shows "Opens Monday at 9:30 AM ET" instead of false "Reconnecting"
 - **Connection resilience** — exponential backoff reconnection + REST polling fallback
-- **Dark theme** — default, as traders expect
 
 ## Tech Stack
 
@@ -52,6 +79,7 @@ Alpaca Trade Updates WS ──→ portfolioStore ─────────┘ 
 - **Pure function condition engine** with comprehensive unit tests
 - **Exponential backoff + jitter** for production-grade reconnection
 - **5-minute cooldown per rule** to prevent notification spam
+- **Market hours awareness** — no false reconnection attempts when market is closed
 
 ## Setup
 
@@ -64,12 +92,12 @@ Alpaca Trade Updates WS ──→ portfolioStore ─────────┘ 
 
 2. **Telegram Bot** (optional):
    - Message [@BotFather](https://t.me/botfather) → `/newbot` → save bot token
-   - Message your bot, then visit `https://api.telegram.org/bot<TOKEN>/getUpdates` to get your chat ID
+   - Go to Settings in the app → Connect Telegram → paste token → scan QR → done
 
 ### Run Locally
 
 ```bash
-git clone <this-repo>
+git clone https://github.com/scriptlord/alpaca.git
 cd alpaca
 npm install
 npm run dev
@@ -85,19 +113,6 @@ Open `http://localhost:5173` — the setup modal will prompt for your API keys.
 npm test
 ```
 
-## Demo Walkthrough
-
-1. Open the app → SetupModal appears
-2. Enter Alpaca paper trading keys → connection turns green
-3. Dashboard loads with portfolio summary + live positions
-4. Click "Alert" on a position → AlertBuilderDrawer opens
-5. Configure: "Price Below $X" + Telegram → preview shows condition
-6. Save alert → appears in Active Alerts
-7. When condition triggers → toast + Telegram message arrives
-8. View Alerts page → triggered alert logged with delivery status
-9. Disconnect WiFi → yellow banner: "Data may be stale"
-10. Reconnect → auto-reconnects, green dot, data resumes
-
 ## Security
 
 - API keys stored in `sessionStorage` only — cleared on tab close
@@ -105,6 +120,7 @@ npm test
 - All communication uses HTTPS/WSS
 - WebSocket data is sanitized before rendering
 - Alert thresholds validated (no negative prices, reasonable ranges)
+- Production version would use Alpaca OAuth 2.0 for seamless authentication
 
 ## Disclaimer
 
