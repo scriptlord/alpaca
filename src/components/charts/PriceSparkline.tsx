@@ -35,7 +35,7 @@ export function PriceSparkline({ symbol }: { symbol: string }) {
 
     const series = chart.addSeries(LineSeries, {
       color: CHART_COLOR_SUCCESS,
-      lineWidth: 1.5,
+      lineWidth: 2,
       priceLineVisible: false,
       lastValueVisible: false,
     })

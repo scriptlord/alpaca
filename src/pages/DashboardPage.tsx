@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { PortfolioSummary } from '@/components/dashboard/PortfolioSummary'
 import { PositionsTable } from '@/components/dashboard/PositionsTable'

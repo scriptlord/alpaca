@@ -10,7 +10,7 @@ import {
 import type { EvaluationContext } from '@/engine/condition-evaluator'
 import type { TriggeredAlert } from '@/lib/types'
 import { MAX_ALERTS_PER_MINUTE, TELEGRAM_CONFIG_KEY } from '@/lib/constants'
-import { sendTelegramMessage, formatTelegramMessage } from '@/api/telegram'
+import { sendTelegramMessage } from '@/api/telegram'
 import { getAiAnalysis, hasAiApiKey } from '@/api/ai-analysis'
 import { getPreferredLanguage, getPreferredExperienceMode } from '@/components/settings/AiSettings'
 import { formatAlertMessage } from '@/lib/format-alert-message'

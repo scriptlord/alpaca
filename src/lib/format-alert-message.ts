@@ -13,7 +13,6 @@ export function formatAlertMessage(
   mode: ExperienceMode
 ): string {
   const { symbol, condition, actualValue, thresholdValue, dailyChangePct } = data
-  const changeEmoji = dailyChangePct >= 0 ? '🟢' : '🔴'
   const changeStr = `${dailyChangePct >= 0 ? '+' : ''}${dailyChangePct.toFixed(1)}%`
 
   if (mode === 'pro') {
