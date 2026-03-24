@@ -1,11 +1,12 @@
 import { NavLink } from 'react-router-dom'
-import { LayoutDashboard, Bell, Settings, Activity } from 'lucide-react'
+import { LayoutDashboard, Bell, Settings, Activity, HelpCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const links = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/alerts', label: 'Alerts', icon: Bell },
   { to: '/settings', label: 'Settings', icon: Settings },
+  { to: '/guide', label: 'How It Works', icon: HelpCircle },
 ]
 
 export function Sidebar() {

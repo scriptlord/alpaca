@@ -9,6 +9,7 @@ import { AlertBuilderDrawer } from '@/components/alerts/AlertBuilderDrawer'
 import { DashboardPage } from '@/pages/DashboardPage'
 import { AlertsPage } from '@/pages/AlertsPage'
 import { SettingsPage } from '@/pages/SettingsPage'
+import { HowItWorksPage } from '@/pages/HowItWorksPage'
 import { useAlpacaWs } from '@/hooks/useAlpacaWs'
 import { useAlertEngine } from '@/hooks/useAlertEngine'
 import { useAlertsStore } from '@/stores/alerts'
@@ -105,6 +106,10 @@ function AppShell() {
               <Route
                 path="/settings"
                 element={<SettingsPage onResetKeys={handleResetKeys} />}
+              />
+              <Route
+                path="/guide"
+                element={<HowItWorksPage />}
               />
             </Routes>
           </main>
