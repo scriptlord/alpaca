@@ -1,22 +1,22 @@
 # Smart Trading Alerts Hub
 
-A real-time alert management system built on Alpaca's Paper Trading API. Monitors market data and portfolio state continuously, evaluates user-defined conditions, and notifies traders instantly via Telegram, browser push, and in-app toasts.
+A real-time alert system built on Alpaca's Paper Trading API. It monitors market data and your portfolio, checks conditions you set, and pings you on Telegram when something happens — with a breakdown of *why* it happened, in your own language.
 
-**Built to solve Alpaca's #1 validated customer pain point** — the platform has no built-in alert or notification system.
+I built this because Alpaca has no built-in alerts. Their users have been asking for it on the forum for years.
 
 ## Try It Live
 
-**[smart-alerts-hub.vercel.app](https://stocks-alerts.vercel.app)**
+**[stocks-alerts.vercel.app](https://stocks-alerts.vercel.app)**
 
-1. Click **"Try Demo"** — connects instantly to a paper trading account
-2. Click any stock in the watchlist (e.g. AAPL) — see AI-powered insights
-3. Click **"Analyze"** — get stock analysis in Pidgin, Yoruba, Igbo, or English
+1. Click **"Try Demo"** — connects to a paper trading account instantly
+2. Click any stock in the watchlist (e.g. AAPL) — see insights
+3. Click **"Analyze"** — get a breakdown in Pidgin, Yoruba, Igbo, or English
 4. Go to **Alerts** → **Create Alert** → set a price condition
-5. During US market hours (Mon-Fri, 9:30 AM - 4:00 PM ET), alerts trigger with live prices
+5. During market hours (Mon-Fri, 9:30 AM - 4:00 PM ET), alerts fire with live prices
 
 ### Telegram Alerts
 
-When an alert triggers, you receive a Telegram message like this:
+When an alert triggers, you get a Telegram message like this:
 
 **Beginner + Pidgin:**
 > 🔴 Bros, AAPL don drop 5% today o! Na because tariff talk dey cause wahala. Volume dey 3x pass normal — plenty people dey sell. You fit watch am small before you decide wetin you wan do. Not financial advice o.
@@ -25,36 +25,35 @@ When an alert triggers, you receive a Telegram message like this:
 > 🚨 AAPL $174.50 (-5.1%) | RSI 28 | Vol 3.1x
 > BofA PT raise to $320. Chip rally on Iran pause.
 
-To try it: **Settings** → **Connect Telegram** → paste bot token → scan QR code → done.
+Set it up in **Settings** → **Connect Telegram** → paste bot token → scan QR code → done.
 
-## Features
+## What It Does
 
-- **Real-time monitoring** via dual WebSocket streams (market data + trade updates)
-- **Configurable alerts** — price thresholds, P&L %, P&L $, order status
-- **AI-powered stock insights** — technical analysis with news sentiment, explained in your language
-- **Multi-language support** — English, Nigerian Pidgin, Yoruba, Igbo
-- **Beginner/Pro modes** — simple explanations or data-driven alerts
-- **Multi-channel notifications** — in-app toasts, Telegram messages, browser push
-- **Portfolio dashboard** — live positions, P&L, account summary
-- **Watchlist** — add any stock with autocomplete search from Alpaca's API
-- **Quick trade** — buy/sell directly from the insight panel
-- **Telegram QR onboarding** — scan to connect, no manual chat ID entry
-- **Market hours detection** — shows "Opens Monday at 9:30 AM ET" instead of false "Reconnecting"
-- **Connection resilience** — exponential backoff reconnection + REST polling fallback
+- Connects to Alpaca via dual WebSocket streams (market data + trade updates)
+- Lets you set alerts on price, P&L %, P&L $, or order status
+- Sends notifications via in-app toasts, Telegram, and browser push
+- Shows stock insights — RSI, volume vs average, moving averages, news sentiment
+- Explains what's happening in English, Pidgin, Yoruba, or Igbo
+- Beginner mode explains like you're new; Pro mode gives you raw data
+- Watchlist with autocomplete search from Alpaca's asset API
+- Buy/sell directly from the insight panel
+- Telegram onboarding via QR code — no manual chat ID entry
+- Detects market hours — shows "Opens Monday at 9:30 AM ET" instead of pretending to reconnect
+- Falls back to REST polling if WebSocket drops
 
 ## Tech Stack
 
-| Technology | Purpose |
+| Tech | Why |
 |---|---|
-| React (Vite) + TypeScript | UI framework with type safety |
-| TailwindCSS + shadcn/ui | Styling + accessible component library |
-| Zustand | State management (3 partitioned slices) |
-| TanStack Query | REST API caching with stale-while-revalidate |
-| TanStack Virtual | Virtualized lists for triggered alert feed |
-| idb-keyval | IndexedDB persistence for alert rules + history |
-| lightweight-charts | Sparkline price charts |
+| React (Vite) + TypeScript | Fast builds, type safety |
+| TailwindCSS + shadcn/ui | Clean components, consistent styling |
+| Zustand | Lightweight state — 3 separate slices so price ticks don't re-render the alert form |
+| TanStack Query | Stale-while-revalidate for REST data |
+| TanStack Virtual | Virtualized list for triggered alerts (can grow to thousands) |
+| idb-keyval | IndexedDB for alert history — localStorage caps at 5MB |
+| lightweight-charts | Sparkline price charts from TradingView |
 | sonner | Toast notifications |
-| Vitest | Unit testing for condition engine |
+| Vitest | Unit tests for the condition engine |
 
 ## Architecture
 
@@ -70,31 +69,30 @@ Alpaca Trade Updates WS ──→ portfolioStore ─────────┘ 
                                                            Alert Log
 ```
 
-### Key Engineering Decisions
+### Why I Made These Choices
 
-- **IndexedDB** for alert history (not localStorage — 5MB limit)
-- **sessionStorage** for API keys (never persist financial credentials to disk)
-- **Real WebSocket streams** (not simulated — proves integration with Alpaca infrastructure)
-- **requestAnimationFrame batching** for high-frequency price updates
-- **Pure function condition engine** with comprehensive unit tests
-- **Exponential backoff + jitter** for production-grade reconnection
-- **5-minute cooldown per rule** to prevent notification spam
-- **Market hours awareness** — no false reconnection attempts when market is closed
+- **IndexedDB** over localStorage — alert history grows, 5MB limit would break it
+- **sessionStorage** for API keys — financial credentials shouldn't persist to disk
+- **Real WebSocket streams** — not mocked, proves it works with Alpaca's actual infra
+- **requestAnimationFrame batching** — WebSocket ticks come faster than 60fps, batching prevents render storms
+- **Pure function condition engine** — no side effects, fully testable, 15 unit tests
+- **Exponential backoff + jitter** — reconnection that doesn't hammer the server
+- **5-minute cooldown per rule** — prevents notification spam on volatile price swings
 
-## Setup
+## Running It Yourself
 
-### Prerequisites
+### What You Need
 
 1. **Alpaca Paper Trading account** (free): [Sign up](https://app.alpaca.markets/signup)
-   - Switch to Paper Trading mode
+   - Switch to Paper Trading
    - Generate API Key ID + Secret Key
-   - Place a few paper trades (buy AAPL, TSLA, etc.)
+   - Buy a few paper stocks (AAPL, TSLA, etc.)
 
 2. **Telegram Bot** (optional):
-   - Message [@BotFather](https://t.me/botfather) → `/newbot` → save bot token
-   - Go to Settings in the app → Connect Telegram → paste token → scan QR → done
+   - Message [@BotFather](https://t.me/botfather) → `/newbot` → save the token
+   - In the app: Settings → Connect Telegram → paste token → scan QR → done
 
-### Run Locally
+### Local Dev
 
 ```bash
 git clone https://github.com/scriptlord/alpaca.git
@@ -103,11 +101,11 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:5173` — the setup modal will prompt for your API keys.
+Open `http://localhost:5173` — enter your API keys when prompted.
 
-> **No `.env` file needed** — all credentials are stored in browser sessionStorage and cleared when you close the tab.
+No `.env` needed — credentials live in sessionStorage and clear when you close the tab.
 
-### Run Tests
+### Tests
 
 ```bash
 npm test
@@ -115,16 +113,14 @@ npm test
 
 ## Security
 
-- API keys stored in `sessionStorage` only — cleared on tab close
-- Keys are never logged, written to disk, or sent to any third party
-- All communication uses HTTPS/WSS
-- WebSocket data is sanitized before rendering
-- Alert thresholds validated (no negative prices, reasonable ranges)
-- Production version would use Alpaca OAuth 2.0 for seamless authentication
+- Credentials in `sessionStorage` only — gone when you close the tab
+- Never logged, never written to disk, never sent anywhere except Alpaca's API
+- All traffic over HTTPS/WSS
+- Production would use Alpaca OAuth 2.0 instead of manual key entry
 
 ## Disclaimer
 
-Alerts are informational and not guaranteed. Not for time-critical trading decisions.
+This is for awareness, not trading decisions. Alerts are not guaranteed.
 
 ## License
 
