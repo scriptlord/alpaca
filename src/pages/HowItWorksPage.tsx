@@ -6,7 +6,7 @@ export function HowItWorksPage() {
       <div className="text-center space-y-2">
         <h1 className="text-3xl font-bold">Never miss a market move</h1>
         <p className="text-muted-foreground">
-          Real-time stock alerts with AI-powered insights — delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
+          Real-time stock alerts with AI-powered insights, delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
         </p>
       </div>
       <HowItWorks />

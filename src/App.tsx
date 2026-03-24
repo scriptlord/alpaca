@@ -15,6 +15,7 @@ import { useAlertEngine } from '@/hooks/useAlertEngine'
 import { useAlertsStore } from '@/stores/alerts'
 import { ConnectionBanner } from '@/components/layout/ConnectionBanner'
 import { HowItWorks } from '@/components/layout/HowItWorks'
+import { Button } from '@/components/ui/button'
 import { CREDENTIALS_KEY } from '@/lib/constants'
 
 const queryClient = new QueryClient({
@@ -79,7 +80,7 @@ function AppShell() {
             <div className="text-center space-y-4">
               <h1 className="text-3xl font-bold">Never miss a market move</h1>
               <p className="text-muted-foreground max-w-lg mx-auto">
-                Real-time stock alerts with smart insights — delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
+                Real-time stock alerts with smart insights, delivered to your Telegram in English, Pidgin, Yoruba, or Igbo.
               </p>
               <Button size="lg" onClick={() => setShowSetup(true)}>
                 Get Started
